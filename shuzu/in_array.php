@@ -1,0 +1,9 @@
+<?php
+//检查数组中是否存在某个值
+    $arr=['a','b','c','d','e'];
+    $name='b11';
+    if(in_array($name,$arr)){
+        echo'$name存在';
+    }else{
+        echo'$name不存在';
+    }
