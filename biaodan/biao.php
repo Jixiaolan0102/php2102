@@ -1,12 +1,6 @@
 <?php
     echo '<pre>';print_r($_POST);'</pre>';
-     $host="127.0.0.1";   //mysql 的主机地址
-    $user="root"; //数据库用户名
-    $pass="root";  //数据库密码
-    $db="php2102";  //使用数据库
-
-    $link = new mysqli($host,$user,$pass,$db);
-
+    include 'quan.php';
     $uname = trim($_POST['name']);
     $uemail = trim($_POST['email']);
     $umobile = trim($_POST['mobile']);
@@ -15,7 +9,7 @@
     $upassword = trim($_POST['password']);
     $reg_time = time();
     // $upass = password_hash($uapass,PASSWORD_DEFAULT);
-
+    //输入值跟返回值相等
     $sql = "insert into biao (`name`,`email`,`mobile`,`year`,`pass`,`password`,`reg_time`)
      values('{$uname}','{$uemail}','{$umobile}','{$uyear}','{$uapass}','{$upassword}',$reg_time)";
     //  echo $sql;die;
