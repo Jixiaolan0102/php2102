@@ -15,7 +15,10 @@
     //获取结果
     $rows =mysqli_fetch_all($result,MYSQLI_ASSOC);
     if(empty($rows)){
-        die("查无此人");
+        header('Refresh:2;url=login.html');
+        die("查无此人,正在跳转登录页面");
+         
+       
     }
     //验证密码
     if($upass==$rows[0]['pass']){
@@ -49,7 +52,6 @@
     }else{
         echo '登陆失败';
     }
-
 
 
     // if(password_verify($upass,$rows[0]['pass'])){
