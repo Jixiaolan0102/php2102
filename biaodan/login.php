@@ -1,7 +1,10 @@
 <?php
+    if($_POST){
+
+
       session_start();
       
-    echo '<pre>';print_r($_POST);echo'</pre>';
+    // echo '<pre>';print_r($_POST);echo'</pre>';
     $value = trim($_POST['u']);
     $upass = trim($_POST['pass']);
     // 使用mysqli链接mysql
@@ -52,10 +55,22 @@
     }else{
         echo '登陆失败';
     }
-
-
-    // if(password_verify($upass,$rows[0]['pass'])){
-    //     echo "登录成功";
-    // }else{
-    //     echo "密码不正确";
-    // }
+    die;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="login.php" method="POST">
+        <input type="text" name="u" placeholder="用户名/email/手机号"><br>
+        <input type="password" name="pass" placeholder="密码"><br>
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>
