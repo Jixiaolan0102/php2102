@@ -1,11 +1,11 @@
 <?php
 
-    $ye=1;                 //定义原页面
+    $ye=0;                 //定义原页面
     if($_GET){
         $page = $_GET['page'];
-            if($page<1){      //判断如果页面页数小于1时
+            if($page<0){      //判断如果页面页数小于1时
                 echo '这是第一页，前面没有了';
-                $page=1;      //第一个页面，再点击上一页，还时最原来的页面
+                $page=0;      //第一个页面，再点击上一页，还时最原来的页面
             }
         $ye = $page;        
     }
@@ -19,7 +19,7 @@
            //连接数据库
            $link = new mysqli($host,$user,$pass,$db);
 
-           $sql = "select * from p_goods limit $a,10";       
+           $sql = "select * from p_goods order by goods_id desc limit $a,10";       
            $stmt = mysqli_query($link,$sql);      //查询
            $mmm = mysqli_fetch_all($stmt,MYSQLI_ASSOC);      //执行
            $count = count($mmm);       //总页数
@@ -39,15 +39,33 @@
         foreach($mmm as $k=>$v){?>
             <li>
                 <a href="goods.php ?id=<?php echo $v['goods_id']?>">
-                <?php echo $v['goods_name']?></a>
+                <?php echo $v['goods_name'] ?></a>
+                <a href="edti.php?id=<?php echo $v['goods_id']?>">编辑商品信息</a>
             </li>
       <?php }
     ?>
     <?php
+    if($page=0){      //判断如果页面页数小于1时
+        header("refresh:2;url=goods_list.php");
+    }
         $add_ye =$ye+1;      //原页面+1，切换到下个页面
         $roo =$ye-1;         //原页面-1，切换到上个页面
+
+        // $aaa = 1000;
+        // $ace = 1000/10;
+        $sql = "select count(goods_id) from p_goods";
+        $stmt = mysqli_query($link,$sql);
+        $redf = mysqli_fetch_all($stmt,MYSQLI_ASSOC);
+        // $count = count($redf);
+        // $awm = ceil($count/10);
+        $count = ceil($redf[0]['count(goods_id)']/10);
     ?>
+    <a href="goods_list.php?page=<?php echo $page ?>">首页</a>
     <a href="goods_list.php?page=<?php echo $roo?>">上一页</a>
     <a href="goods_list.php?page=<?php echo $add_ye?>">下一页</a>
+    <a href="goods_list.php?page=<?php echo $count-1?>">尾页</a>
+    <a href="add.html">添加</a>
+    <a href="search.html">搜索</a>
+    <br>
 </body>
 </html>
